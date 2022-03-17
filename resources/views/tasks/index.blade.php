@@ -78,11 +78,11 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">save</h5>
+                  <h5 class="modal-title" id="saveModalLabel">Edit</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -219,7 +219,13 @@
                                         return;
                                     }
                                     let task =data.data;
-                                    var taskItem = '<li class="list-group-item d-flex justify-content-between align-items-center" id="item'+task.id+'" data-id="'+task.id+'">'+task.name+' <i class="fas fa-edit fa-xs" data-toggle="modal" data-target="#saveModal" data-id="'+task.id+'" data-name="'+task.name+'"></i></li>' ;
+                                    var taskItem = '<li class="list-group-item d-flex justify-content-between align-items-center" id="item'+task.id+'" data-id="'+task.id+'">'+task.name
+                                       // taskItem+=' <i class="fas fa-edit fa-xs" data-toggle="modal" data-target="#saveModal" data-id="'+task.id+'" data-name="'+task.name+'"></i>
+                                       taskItem+='<div class="btn-group" role="group" aria-label="Basic example">';
+                                        taskItem+='<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#saveModal" data-id="'+task.id+'" data-name="'+task.name+'"><i class="fas fa-edit fa-xs"></i></button>';
+                                        taskItem+='<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{'+task.name+'}}" data-name="'+task.name+'"><i class="fas fa-trash fa-xs"></i></button>';
+                                        taskItem+='</div>'
+                                        taskItem+='</li>' ;
                                     if (mode == "store") {
                                         jQuery('#items').append(taskItem);
                                     } else {
@@ -265,7 +271,7 @@
                     var tilte = id?'Edit':'New';
                     var mode = id?'update':'store';
                     $("#btn-save").attr('data-mode',mode);
-                    modal.find('.modal-title').text(tilte)
+                    modal.find('#saveModalLabel').text(tilte)
                     modal.find('#model-name').val(name);
                     modal.find('#model-id').val(id);
                     })
